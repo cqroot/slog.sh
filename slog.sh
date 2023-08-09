@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+#
+# A logging library for Bash.
 
 SLOG_LEVEL_DEBUG=0
 SLOG_LEVEL_INFO=1
@@ -32,10 +34,10 @@ function __slog_color_nc() {
 }
 
 __slog_level_msgs=(
-	"DEBUG"
-	"$(__slog_color_green) INFO$(__slog_color_nc)"
-	"$(__slog_color_yellow) WARN$(__slog_color_nc)"
-	"$(__slog_color_red)ERROR$(__slog_color_nc)"
+	"[DEBUG]"
+	"$(__slog_color_green) [INFO]$(__slog_color_nc)"
+	"$(__slog_color_yellow) [WARN]$(__slog_color_nc)"
+	"$(__slog_color_red)[ERROR]$(__slog_color_nc)"
 )
 
 function __slog_msg() {
@@ -43,23 +45,43 @@ function __slog_msg() {
 		return
 	fi
 
-	printf "$(__slog_color_purple)%s$(__slog_color_nc) [${__slog_level_msgs[$1]}] %s\n" \
+	printf "$(__slog_color_purple)%s$(__slog_color_nc) ${__slog_level_msgs[$1]} %s\n" \
 		"$(date '+%Y-%m-%d %H:%M:%S:%3N')" \
 		"$2"
 }
 
+#######################################
+# Debug.
+# Arguments:
+#   Msg
+#######################################
 function slog_debug() {
 	__slog_msg ${SLOG_LEVEL_DEBUG} "$1"
 }
 
+#######################################
+# Info.
+# Arguments:
+#   Msg
+#######################################
 function slog_info() {
 	__slog_msg ${SLOG_LEVEL_INFO} "$1"
 }
 
+#######################################
+# Warning.
+# Arguments:
+#   Msg
+#######################################
 function slog_warning() {
 	__slog_msg ${SLOG_LEVEL_WARNING} "$1"
 }
 
+#######################################
+# Error.
+# Arguments:
+#   Msg
+#######################################
 function slog_error() {
 	__slog_msg ${SLOG_LEVEL_ERROR} "$1"
 }
