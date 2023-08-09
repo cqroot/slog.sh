@@ -7,6 +7,8 @@ A logging library for **Bash**.
 ```bash
 source "/path/to/slog.sh"
 
+SLOG_LEVEL=${SLOG_LEVEL_WARNING}
+
 slog_error "Error message."
 slog_warning "Warning message."
 slog_info "Info message."
