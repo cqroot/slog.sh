@@ -8,6 +8,8 @@ SLOG_LEVEL_WARNING=2
 SLOG_LEVEL_ERROR=3
 SLOG_LEVEL=${SLOG_LEVEL:-1}
 
+SLOG_ENABLE_CALLER=0
+
 function __slog_color_red() {
 	# shellcheck disable=SC2028
 	echo '\033[0;31m'
@@ -33,6 +35,12 @@ function __slog_color_nc() {
 	echo '\033[0m'
 }
 
+function __slog_module_caller() {
+	if [ $SLOG_ENABLE_CALLER -eq 1 ]; then
+		echo "${BASH_SOURCE[3]}:${BASH_LINENO[2]} "
+	fi
+}
+
 __slog_level_msgs=(
 	"[DEBUG]"
 	"$(__slog_color_green) [INFO]$(__slog_color_nc)"
@@ -45,8 +53,9 @@ function __slog_msg() {
 		return
 	fi
 
-	printf "$(__slog_color_purple)%s$(__slog_color_nc) ${__slog_level_msgs[$1]} %s\n" \
+	printf "$(__slog_color_purple)%s$(__slog_color_nc) ${__slog_level_msgs[$1]} %s%s\n" \
 		"$(date '+%Y-%m-%d %H:%M:%S:%3N')" \
+		"$(__slog_module_caller)" \
 		"$2"
 }
 

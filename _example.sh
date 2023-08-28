@@ -11,13 +11,17 @@ function log_all() {
 	echo
 }
 
-echo "DEFAULT LEVEL"
+echo "DEFAULT LEVEL ***********************************************************"
 log_all
 
-echo "ERROR LEVEL"
+echo "ERROR LEVEL *************************************************************"
 SLOG_LEVEL=${SLOG_LEVEL_ERROR}
 log_all
 
-echo "DEBUG LEVEL"
+echo "DEBUG LEVEL *************************************************************"
 SLOG_LEVEL=${SLOG_LEVEL_DEBUG}
+log_all
+
+echo "ENABLE CALLER ***********************************************************"
+SLOG_ENABLE_CALLER=1
 log_all
